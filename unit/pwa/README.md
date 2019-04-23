@@ -107,7 +107,7 @@ if ('serviceWorker' in navigator) {
 ```
 self.addEventListener('activate', event => {
   console.log(`${cacheKey} is activated`)
-  event.waitUntivl((async () => {
+  event.waitUntil((async () => {
     const keys = await caches.keys()
     return Promise.all(keys.filter(key => key != cacheKey).map(key => caches.delete(key)))
   })())
@@ -117,7 +117,7 @@ self.addEventListener('activate', event => {
 只要舊的版本還在，就算新版的 service worker 安裝好，這段程式程式碼仍不會運作。當分頁關閉，舊的 service worker 停止，重新開啟分頁我們這段程式碼才會運作。
 
 詳情請看[service worker生命週期](https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle?hl=zh-tw)。
-並試試在 install 階段以 .skipWating() 取代 .waitUntivl()
+並試試在 install 階段以 .skipWating() 取代 .waitUntil()
 
 ## Step 6: 控制資料抓取
 當網頁要向網路抓取資料時，先查看 cache 中是否有相符的資料，若沒有相符的資料再向網路抓取資料。在 `dist/sw.js` 中加入:
